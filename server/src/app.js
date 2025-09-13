@@ -1,4 +1,3 @@
-// server/src/app.js
 import express from "express";
 import session from "express-session";
 import MongoStore from "connect-mongo";
@@ -6,35 +5,40 @@ import cors from "cors";
 import morgan from "morgan";
 import dotenv from "dotenv";
 
-dotenv.config();
-
+import connectDB from "./utils/config.js";
 import authRoutes from "./auth/auth.routes.js";
 import errorHandler from "./middleware/error.middleware.js";
-import connectDB from "./utils/config.js";
+
+dotenv.config();
+connectDB();
 
 const app = express();
 
-connectDB();
-
+// Middlewares
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(
   cors({
-    origin: "http://localhost:8080", // frontend origin
+    origin: "http://localhost:8080", // adjust to your frontend port
     credentials: true,
   })
 );
 
+// Session setup (using MongoDB as store)
 app.use(
   session({
     secret: process.env.SESSION_SECRET || "changeme",
     resave: false,
     saveUninitialized: false,
-    store: MongoStore.create({ mongoUrl: process.env.MONGO_URI }),
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGO_URI,
+      collectionName: "sessions",
+    }),
     cookie: {
       httpOnly: true,
-      secure: false, // set to true in production with HTTPS
+      secure: false,
       sameSite: "lax",
+      maxAge: 1000 * 60 * 60,
     },
   })
 );
@@ -47,7 +51,7 @@ app.get("/healthz", (req, res) => {
   res.json({ status: "ok" });
 });
 
-// Error handler (last middleware)
+// Error handling
 app.use(errorHandler);
 
 export default app;
