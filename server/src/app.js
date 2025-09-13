@@ -7,6 +7,7 @@ import dotenv from "dotenv";
 
 import connectDB from "./utils/config.js";
 import authRoutes from "./auth/auth.routes.js";
+import profileRoutes from "./profile/profile.routes.js";
 import errorHandler from "./middleware/error.middleware.js";
 
 dotenv.config();
@@ -45,6 +46,7 @@ app.use(
 
 // Routes
 app.use("/auth", authRoutes);
+app.use("/api", profileRoutes);
 
 // Health check
 app.get("/healthz", (req, res) => {

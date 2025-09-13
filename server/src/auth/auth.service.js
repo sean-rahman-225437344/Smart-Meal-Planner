@@ -4,7 +4,7 @@ import User from "./user.model.js";
 export async function register({ email, password, name }) {
   const existing = await User.findOne({ email });
   if (existing) {
-    throw new Error({ code: "AUTH-409", message: "User already exists" });
+    throw { code: "AUTH-409", message: "User already exists" };
   }
   const passwordHash = await bcrypt.hash(password, 10);
   const user = await User.create({ email, passwordHash, name });
@@ -13,11 +13,10 @@ export async function register({ email, password, name }) {
 
 export async function login({ email, password }) {
   const user = await User.findOne({ email });
-  if (!user) throw new Error({ code: "AUTH-404", message: "User not found" });
+  if (!user) throw { code: "AUTH-404", message: "User not found" };
 
   const valid = await user.comparePassword(password);
-  if (!valid)
-    throw new Error({ code: "AUTH-401", message: "Invalid credentials" });
+  if (!valid) throw { code: "AUTH-401", message: "Invalid credentials" };
 
   return { id: user._id, email: user.email, name: user.name, role: user.role };
 }
