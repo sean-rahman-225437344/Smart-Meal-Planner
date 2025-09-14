@@ -4,11 +4,22 @@
     <meta charset="UTF-8" />
     <title>Smart Meal Planner | Login</title>
   </head>
-  <body>
+  <body
+    style="
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    "
+  >
     <h1>Smart Meal Planner</h1>
 
     <h2>Register</h2>
-    <form id="registerForm">
+    <form
+      id="registerForm"
+      style="display: flex; flex-direction: column; width: 200px; gap: 16px"
+    >
       <input type="text" id="regName" placeholder="Name" required />
       <input type="email" id="regEmail" placeholder="Email" required />
       <input type="password" id="regPassword" placeholder="Password" required />
@@ -16,7 +27,10 @@
     </form>
 
     <h2>Login</h2>
-    <form id="loginForm">
+    <form
+      id="loginForm"
+      style="display: flex; flex-direction: column; width: 200px; gap: 16px"
+    >
       <input type="email" id="loginEmail" placeholder="Email" required />
       <input
         type="password"

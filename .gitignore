@@ -13,3 +13,11 @@ cdp_api_key.json
 
 test-results/
 playwright-report/
+
+
+server/coverage/
+
+# Playwright
+/playwright-report/
+/blob-report/
+/playwright/.cache/

@@ -16,7 +16,6 @@ async function loadDashboard() {
 document.getElementById("logoutBtn").addEventListener("click", async () => {
   try {
     await logoutUser();
-    alert("Logged out");
     window.location.href = "index.html";
   } catch (err) {
     alert("Logout failed: " + (err.response?.data?.message || "Error"));
