@@ -16,3 +16,8 @@ playwright-report/
 
 
 server/coverage/
+
+# Playwright
+/playwright-report/
+/blob-report/
+/playwright/.cache/

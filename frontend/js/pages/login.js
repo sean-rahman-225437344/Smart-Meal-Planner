@@ -9,10 +9,11 @@ document
     const password = document.getElementById("regPassword").value;
 
     try {
-      const data = await registerUser(name, email, password);
-      alert("Registration successful: " + data.user.name);
+      await registerUser(name, email, password);
+      console.log("✅ Redirecting to dashboard...");
       window.location.href = "dashboard.html";
     } catch (err) {
+      console.log("Registration failed:", err);
       alert("Registration failed: " + (err.response?.data?.message || "Error"));
     }
   });
@@ -23,8 +24,7 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
   const password = document.getElementById("loginPassword").value;
 
   try {
-    const data = await loginUser(email, password);
-    alert("Login successful: " + data.user.name);
+    await loginUser(email, password);
     window.location.href = "dashboard.html";
   } catch (err) {
     alert("Login failed: " + (err.response?.data?.message || "Error"));
