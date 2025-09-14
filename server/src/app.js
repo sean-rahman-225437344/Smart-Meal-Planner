@@ -10,6 +10,9 @@ import authRoutes from "./auth/auth.routes.js";
 import profileRoutes from "./profile/profile.routes.js";
 import errorHandler from "./middleware/error.middleware.js";
 
+// Meal plan routes
+import mealPlanRoutes from "./mealplan/mealplan.routes.js";
+
 dotenv.config();
 connectDB();
 
@@ -47,6 +50,10 @@ app.use(
 // Routes
 app.use("/auth", authRoutes);
 app.use("/api", profileRoutes);
+
+// Meal plan routes
+app.use("/api", mealPlanRoutes);
+
 
 // Health check
 app.get("/healthz", (req, res) => {
