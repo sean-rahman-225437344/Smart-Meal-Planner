@@ -20,7 +20,7 @@ app.use(morgan("dev"));
 app.use(express.json());
 app.use(
   cors({
-    origin: "http://localhost:8080", // adjust to your frontend port
+    origin: "http://localhost:3000", // adjust to your frontend port
     credentials: true,
   })
 );
