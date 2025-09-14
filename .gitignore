@@ -13,3 +13,6 @@ cdp_api_key.json
 
 test-results/
 playwright-report/
+
+
+server/coverage/
