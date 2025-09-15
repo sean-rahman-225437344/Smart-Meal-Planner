@@ -5,7 +5,7 @@ import Recipe from "./recipe.model.js";
 dotenv.config();
 
 async function seedRecipes() {
-  await mongoose.connect(process.env.MONGO_URI);
+  await mongoose.connect("mongodb://localhost:27017/mealplanner");
 
   const recipes = [
     {
