@@ -1,14 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Smart Meal Planner | Dashboard</title>
-  </head>
-  <body>
-    <h1>Dashboard</h1>
-    <p id="welcomeMsg">Loading...</p>
-    <button id="logoutBtn">Logout</button>
+<head>
+  <meta charset="UTF-8" />
+  <title>Smart Meal Planner | Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="./css/dashboard.css" />
+</head>
+<body>
+  <!-- ========== HEADER (line 1) ========== -->
+  <header class="topbar">
+    <div class="brand">
+      <div class="dot"></div>
+      <a href="./index.html" class="name">Smart Meal Planner</a>
+    </div>
 
-    <script type="module" src="./js/pages/dashboard.js"></script>
-  </body>
+    <div class="user-actions">
+      <span class="welcome">Welcome, <strong id="welcomeName">User</strong></span>
+      <button id="logoutBtn" class="btn ghost">Logout</button>
+    </div>
+  </header>
+
+  <!-- ========== TABS (line 2) ========== -->
+  <nav class="tabs" role="tablist" aria-label="Dashboard sections">
+    <button class="tab is-active" role="tab" aria-selected="true" data-tab="profile">Profile</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="plans">My Plans</button>
+  </nav>
+
+  <!-- ========== CONTENT ========== -->
+  <main class="content">
+    <!-- Profile -->
+    <section id="panel-profile" class="panel is-active" role="tabpanel" aria-labelledby="tab-profile">
+      <div class="card grid-2">
+        <div>
+          <h2>Your Profile</h2>
+          <div class="kv">
+            <span class="k">Name</span><span id="pName" class="v">—</span>
+            <span class="k">Email</span><span id="pEmail" class="v">—</span>
+            <span class="k">Diet</span><span id="pDiet" class="v">None</span>
+          </div>
+        </div>
+        <div class="avatar-card">
+          <div class="avatar" aria-hidden="true">👤</div>
+          <p class="muted">Complete your profile info later.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Preferences</h3>
+        <div class="prefs">
+          <label>Dietary Preference
+            <select disabled>
+              <option>Vegetarian</option>
+              <option>Vegan</option>
+              <option>Halal</option>
+              <option>Gluten-free</option>
+              <option selected>None</option>
+            </select>
+          </label>
+          <label>Weekly Budget (AUD)
+            <input type="number" placeholder="e.g., 60" disabled />
+          </label>
+          <button class="btn primary" disabled>Save Changes</button>
+        </div>
+        <p class="muted tiny"></p>
+      </div>
+    </section>
+
+    <!-- My Plans -->
+    <section id="panel-plans" class="panel" role="tabpanel" aria-labelledby="tab-plans">
+      <div class="card">
+        <h2>My Plans</h2>
+        <div class="plans-head">
+          <div class="filters">
+            <input class="input" type="search" placeholder="Search plans…" disabled />
+            <select class="input" disabled>
+              <option selected>All</option>
+              <option>Weekly</option>
+              <option>Daily</option>
+            </select>
+          </div>
+          <button class="btn primary" disabled>+ New Plan</button>
+        </div>
+
+        <ul class="plan-list">
+          <!-- examples for design -->
+          <li class="plan">
+            <div class="plan-title">Week 1 Budget Plan</div>
+            <div class="plan-meta muted">Budget: $45 • Days: 7 • Created: 2025-09-10</div>
+            <div class="plan-actions">
+              <button class="btn ghost" disabled>View</button>
+              <button class="btn ghost" disabled>Edit</button>
+              <button class="btn ghost danger" disabled>Delete</button>
+            </div>
+          </li>
+          <li class="plan">
+            <div class="plan-title">Vegetarian Weekdays</div>
+            <div class="plan-meta muted">Budget: $50 • Days: 5 • Created: 2025-09-12</div>
+            <div class="plan-actions">
+              <button class="btn ghost" disabled>View</button>
+              <button class="btn ghost" disabled>Edit</button>
+              <button class="btn ghost danger" disabled>Delete</button>
+            </div>
+          </li>
+        </ul>
+        
+      </div>
+    </section>
+  </main>
+
+  <!-- tiny script to switch tabs (no backend) -->
+  <script>
+    const tabs = document.querySelectorAll(".tab");
+    const panels = document.querySelectorAll(".panel");
+    tabs.forEach(t => t.addEventListener("click", () => {
+      tabs.forEach(x => x.classList.remove("is-active"));
+      panels.forEach(p => p.classList.remove("is-active"));
+      t.classList.add("is-active");
+      document.getElementById("panel-" + t.dataset.tab).classList.add("is-active");
+    }));
+
+    // Optional: show name/email from localStorage if your login saved it
+    try {
+      const user = JSON.parse(localStorage.getItem("smp_user") || "{}");
+      if (user?.email) {
+        document.getElementById("welcomeName").textContent = (user.name || user.email.split("@")[0] || "User");
+        document.getElementById("pName").textContent = user.name || "—";
+        document.getElementById("pEmail").textContent = user.email.toUpperCase();
+        document.getElementById("pDiet").textContent = user.diet || "None";
+      }
+    } catch { /* ignore */ }
+  </script>
+  <script type="module" src="./js/pages/dashboard.js"></script> <!-- keep if you already have it -->
+</body>
 </html>
