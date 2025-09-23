@@ -33,7 +33,7 @@ app.use(express.json());
 // Enable CORS for frontend communication during development
 app.use(
   cors({
-    origin: `http://localhost:${PORT}`,
+    origin: `http://localhost:${3000}`,
     credentials: true,
   })
 );
@@ -65,6 +65,13 @@ app.get("/healthz", (req, res) => {
   res.json({ status: "ok" });
 });
 
+app.get("/api/student", (req, res) => {
+  res.json({
+    name: "Anuj Timsina",
+    studentId: "225566655",
+  });
+});
+
 // Other API routes
 app.use("/auth", authRoutes);
 app.use("/api", profileRoutes);
@@ -75,7 +82,6 @@ app.use("/api", mealPlanRoutes);
 app.use((req, res) => {
   res.sendFile(path.resolve(__dirname, "../../frontend", "index.html"));
 });
-
 
 // Error handling middleware.
 // THIS MUST BE THE VERY LAST THING DEFINED.

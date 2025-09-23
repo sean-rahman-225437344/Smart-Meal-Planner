@@ -70,3 +70,44 @@ npm run dev
    GET http://localhost:4000/api/mealplans
 
 ---
+
+### Run with Docker
+
+## Prerequisites
+
+- [Docker Desktop](https://www.docker.com/products/docker-desktop) installed and running
+- MongoDB running locally on your host machine (default: `mongodb://localhost:27017/mealplanner`)
+
+---
+
+## Build & Run with Docker
+
+1. Clone this repository and navigate to the project root.
+
+2. Build the Docker image:
+
+   ```bash
+   docker build -t smart-meal-planner .
+   ```
+
+3. Start the container (make sure MongoDB is running locally):
+
+   ```bash
+   docker run -p 4000:4000 \
+     -e MONGO_URI="mongodb://host.docker.internal:27017/mealplanner" \
+     smart-meal-planner
+   ```
+
+4. Open in your browser:
+
+   - Frontend: [http://localhost:4000](http://localhost:4000)
+   - Student API: [http://localhost:4000/api/student](http://localhost:4000/api/student)
+
+Example `/api/student` output:
+
+```json
+{
+  "name": "Anuj Timsina",
+  "studentId": "225566655"
+}
+```
