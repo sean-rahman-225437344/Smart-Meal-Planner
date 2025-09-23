@@ -33,7 +33,7 @@ app.use(express.json());
 // Enable CORS for frontend communication during development
 app.use(
   cors({
-    origin: `http://localhost:${PORT}`,
+    origin: `http://localhost:${3000}`,
     credentials: true,
   })
 );
