@@ -5,6 +5,7 @@ import morgan from "morgan";
 import dotenv from "dotenv";
 import connectDB from "./utils/config.js";
 import authRoutes from "./auth/auth.routes.js";
+import studentRoutes from "./student_id/studentRoutes.js"
 import profileRoutes from "./profile/profile.routes.js";
 import errorHandler from "./middleware/error.middleware.js";
 import path from "path";
@@ -69,6 +70,7 @@ app.get("/healthz", (req, res) => {
 app.use("/auth", authRoutes);
 app.use("/api", profileRoutes);
 app.use("/api", mealPlanRoutes);
+app.use("/api", studentRoutes);
 
 // Catch-all route to serve the main HTML file.
 // THIS MUST BE THE SECOND TO LAST THING DEFINED.
