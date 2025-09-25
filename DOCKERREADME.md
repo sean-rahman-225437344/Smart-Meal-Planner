@@ -1,4 +1,4 @@
-Step by Step to run Smart-Meal-Planner using Docker
+Step by Step instructions to run Smart-Meal-Planner using Docker
 1. cd Smart-Meal-Planner
 2. Run " docker build -t my-node-app ." in the container
 3. After the image is built run "docker run -p 4000:4000 --name my-node-app-container my-node-app"
