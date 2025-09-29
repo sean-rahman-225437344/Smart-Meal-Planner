@@ -94,7 +94,7 @@
             class="bg-background-light dark:bg-background-dark p-8 rounded-xl border border-subtle-light dark:border-subtle-dark"
           >
             <h2 class="text-3xl font-bold mb-8 text-center">Update Profile</h2>
-            <form class="space-y-6">
+            <!-- <form class="space-y-6">
               <div>
                 <label class="block text-sm font-medium mb-2" for="name"
                   >Name</label
@@ -133,12 +133,48 @@
                     background-image: url('data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27 fill=%27%2338e07b%27%3e%3cpath d=%27M8 10.75a.75.75 0 0 1-.53-.22l-3-3a.75.75 0 1 1 1.06-1.06L8 8.94l2.47-2.47a.75.75 0 1 1 1.06 1.06l-3 3a.75.75 0 0 1-.53.22z%27/%3e%3c/svg%3e');
                   "
                 >
-                  <option>Vegetarian</option>
-                  <option selected="">Vegan</option>
-                  <option>Gluten-Free</option>
-                  <option>Keto</option>
-                  <option>None</option>
+                  <option value="omnivore">Omnivore</option>
+                  <option value="vegetarian">Vegetarian</option>
+                  <option value="vegan">Vegan</option>
+                  <option value="keto">Keto</option>
                 </select>
+              </div>
+              <div>
+                <label class="block text-sm font-medium mb-2" for="allergies">
+                  Allergies (comma-separated)
+                </label>
+                <input
+                  id="allergies"
+                  name="allergies"
+                  type="text"
+                  placeholder="e.g. peanuts, shellfish"
+                  class="w-full px-4 py-3 rounded-lg ..."
+                />
+              </div>
+              <div>
+                <label class="block text-sm font-medium mb-2" for="cuisines">
+                  Preferred Cuisines (comma-separated)
+                </label>
+                <input
+                  id="cuisines"
+                  name="cuisines"
+                  type="text"
+                  placeholder="e.g. italian, indian, japanese"
+                  class="w-full px-4 py-3 rounded-lg ..."
+                />
+              </div>
+              <div>
+                <label class="block text-sm font-medium mb-2" for="servings">
+                  Servings per Meal
+                </label>
+                <input
+                  id="servings"
+                  name="servings"
+                  type="number"
+                  min="1"
+                  value="1"
+                  class="w-full px-4 py-3 rounded-lg ..."
+                />
               </div>
               <div>
                 <label class="block text-sm font-medium mb-2" for="budget"
@@ -156,6 +192,120 @@
                 <button
                   class="w-full bg-primary text-background-dark font-bold py-3 px-4 rounded-lg hover:bg-opacity-90 transition-all duration-300"
                   type="submit"
+                >
+                  Save Changes
+                </button>
+              </div>
+            </form> -->
+            <form class="space-y-6">
+              <!-- Name (readonly) -->
+              <div>
+                <label class="block text-sm font-medium mb-2" for="name"
+                  >Name</label
+                >
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  readonly
+                  class="w-full px-4 py-3 rounded-lg bg-gray-100 dark:bg-gray-700 border border-subtle-light dark:border-subtle-dark text-gray-500 cursor-not-allowed"
+                />
+              </div>
+
+              <!-- Email (readonly) -->
+              <div>
+                <label class="block text-sm font-medium mb-2" for="email"
+                  >Email</label
+                >
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  readonly
+                  class="w-full px-4 py-3 rounded-lg bg-gray-100 dark:bg-gray-700 border border-subtle-light dark:border-subtle-dark text-gray-500 cursor-not-allowed"
+                />
+              </div>
+
+              <!-- Dietary Preference -->
+              <div>
+                <label
+                  class="block text-sm font-medium mb-2"
+                  for="dietary-preference"
+                >
+                  Dietary Preference
+                </label>
+                <select
+                  id="dietary-preference"
+                  name="dietary-preference"
+                  class="w-full px-4 py-3 rounded-lg bg-background-light dark:bg-background-dark border border-subtle-light dark:border-subtle-dark focus:ring-2 focus:ring-primary focus:border-transparent transition"
+                >
+                  <option value="omnivore">Omnivore</option>
+                  <option value="vegetarian">Vegetarian</option>
+                  <option value="vegan">Vegan</option>
+                  <option value="keto">Keto</option>
+                </select>
+              </div>
+
+              <!-- Allergies -->
+              <div>
+                <label class="block text-sm font-medium mb-2" for="allergies">
+                  Allergies (comma-separated)
+                </label>
+                <input
+                  id="allergies"
+                  name="allergies"
+                  type="text"
+                  placeholder="e.g. peanuts, shellfish"
+                  class="w-full px-4 py-3 rounded-lg bg-background-light dark:bg-background-dark border border-subtle-light dark:border-subtle-dark focus:ring-2 focus:ring-primary focus:border-transparent transition"
+                />
+              </div>
+
+              <!-- Cuisines -->
+              <div>
+                <label class="block text-sm font-medium mb-2" for="cuisines">
+                  Preferred Cuisines (comma-separated)
+                </label>
+                <input
+                  id="cuisines"
+                  name="cuisines"
+                  type="text"
+                  placeholder="e.g. italian, indian, japanese"
+                  class="w-full px-4 py-3 rounded-lg bg-background-light dark:bg-background-dark border border-subtle-light dark:border-subtle-dark focus:ring-2 focus:ring-primary focus:border-transparent transition"
+                />
+              </div>
+
+              <!-- Servings -->
+              <div>
+                <label class="block text-sm font-medium mb-2" for="servings">
+                  Servings per Meal
+                </label>
+                <input
+                  id="servings"
+                  name="servings"
+                  type="number"
+                  min="1"
+                  class="w-full px-4 py-3 rounded-lg bg-background-light dark:bg-background-dark border border-subtle-light dark:border-subtle-dark focus:ring-2 focus:ring-primary focus:border-transparent transition"
+                />
+              </div>
+
+              <!-- Weekly Budget -->
+              <div>
+                <label class="block text-sm font-medium mb-2" for="budget">
+                  Budget ($/week)
+                </label>
+                <input
+                  id="budget"
+                  name="budget"
+                  type="number"
+                  class="w-full px-4 py-3 rounded-lg bg-background-light dark:bg-background-dark border border-subtle-light dark:border-subtle-dark focus:ring-2 focus:ring-primary focus:border-transparent transition"
+                />
+              </div>
+
+              <!-- Save button -->
+              <div class="pt-4">
+                <button
+                  type="submit"
+                  class="w-full bg-primary text-background-dark font-bold py-3 px-4 rounded-lg hover:bg-opacity-90 transition-all duration-300"
                 >
                   Save Changes
                 </button>
