@@ -32,13 +32,17 @@ document.getElementById("generateBtn").addEventListener("click", async () => {
         const meals = (day.meals || [])
           .map(
             (m, idx) => `
-                <div class="p-3 rounded bg-primary/10 dark:bg-primary/20">
-                  <p class="font-semibold">Meal ${idx + 1}</p>
-                  <p class="text-sm">${m.title}</p>
-                  <p class="text-xs text-subtle-light dark:text-subtle-dark">
-                    Serves ${m.servings}
-                  </p>
-                </div>`
+  <div class="p-3 rounded bg-primary/10 dark:bg-primary/20">
+    <p class="font-semibold">Meal ${idx + 1}</p>
+    <p class="text-sm">${m.title}</p>
+    <p class="text-xs text-subtle-light dark:text-subtle-dark">
+      Serves ${m.servings}
+    </p>
+    <a href="recipe.html?id=${m.recipeId}" 
+       class="text-primary text-xs underline mt-2 inline-block">
+       View Recipe
+    </a>
+  </div>`
           )
           .join("");
 

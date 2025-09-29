@@ -13,6 +13,7 @@ import cors from "cors";
 
 // Meal plan routes
 import mealPlanRoutes from "./mealplan/mealplan.routes.js";
+import recipeRoutes from "./recipe/recipe.routes.js";
 
 dotenv.config();
 
@@ -70,6 +71,7 @@ app.get("/healthz", (req, res) => {
 app.use("/auth", authRoutes);
 app.use("/api", profileRoutes);
 app.use("/api", mealPlanRoutes);
+app.use("/api", recipeRoutes);
 
 // Catch-all route to serve the main HTML file.
 // THIS MUST BE THE SECOND TO LAST THING DEFINED.
