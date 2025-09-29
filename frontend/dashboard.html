@@ -19,7 +19,7 @@
             colors: {
               primary: "#38e07b",
               "background-light": "#f6f8f7",
-              "background-dark": "#122017",
+              "background-dark": "#000000",
             },
             fontFamily: {
               display: ["Manrope"],
@@ -71,18 +71,8 @@
             <nav class="hidden md:flex items-center gap-6">
               <a
                 class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors"
-                href="#"
-                >Dashboard</a
-              >
-              <a
-                class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors"
-                href="#"
+                href="mealplan.html"
                 >Meal Plans</a
-              >
-              <a
-                class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors"
-                href="#"
-                >Recipes</a
               >
               <a
                 class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors"
@@ -90,12 +80,10 @@
                 >Settings</a
               >
             </nav>
-            <div
-              class="w-10 h-10 rounded-full bg-cover bg-center"
-              style="
-                background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBoOUTkjp8JoJ7ZnzrJ5bnHegY9lnARWaODinet2UDBlItWld4waF1yZ7Xn-wjsoHCo0ofjT5xiLt1kzQdZMwMNZTj1nb-o6Zk-lk0gjpI3Rdw7VnnDp7KMP96u5GlGOixfQE3yFNWdu0T5HUH9BS87pIzwh65EnpLPnASxsPNWmarw3AdKGXdsWw0Hbz-sVszujAeuOvD541nMwZlFC2RhDMtnAUNh4S6zKVs9i0rhpA_yJ4jPXYboBP34ejJjcQVp3lHB2bUA_SDT');
-              "
-            ></div>
+            <a href="profile.html">
+              <div class="w-10 h-10 rounded-full bg-cover bg-center cursor-pointer" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBoOUTkjp8JoJ7ZnzrJ5bnHegY9lnARWaODinet2UDBlItWld4waF1yZ7Xn-wjsoHCo0ofjT5xiLt1kzQdZMwMNZTj1nb-o6Zk-lk0gjpI3Rdw7VnnDp7KMP96u5GlGOixfQE3yFNWdu0T5HUH9BS87pIzwh65EnpLPnASxsPNWmarw3AdKGXdsWw0Hbz-sVszujAeuOvD541nMwZlFC2RhDMtnAUNh4S6zKVs9i0rhpA_yJ4jPXYboBP34ejJjcQVp3lHB2bUA_SDT');">
+              </div>
+            </a>
           </div>
         </div>
       </header>
@@ -189,7 +177,7 @@
             <div class="space-y-6">
               <a
                 class="block text-center bg-primary/20 dark:bg-primary/30 hover:bg-primary/30 dark:hover:bg-primary/40 p-8 rounded-xl transition-all"
-                href="#"
+                href="profile.html"
               >
                 <h3 class="text-lg font-bold text-gray-900 dark:text-white">
                   Update Profile
@@ -205,6 +193,13 @@
                 <h3 class="text-lg font-bold">Generate Meal Plan</h3>
                 <p class="text-sm text-gray-800 mt-1">
                   Create your next weekly plan
+                </p>
+              </a>
+              <a class="block text-center bg-primary text-gray-900 p-8 rounded-xl hover:bg-primary/90 transition-all"
+                href="grocery.html">
+                <h3 class="text-lg font-bold">Grocery List</h3>
+                <p class="text-sm text-gray-800 mt-1">
+                  Check your weekly grocery list
                 </p>
               </a>
             </div>
