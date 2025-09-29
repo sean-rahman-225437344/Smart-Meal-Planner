@@ -30,10 +30,11 @@ console.log("MONGO_URI =", process.env.MONGO_URI);
 app.use(morgan("dev"));
 app.use(express.json());
 
-// Enable CORS for frontend communication during development
+const allowedOrigins = ["http://localhost:3000", "http://localhost:4000"];
+
 app.use(
   cors({
-    origin: `http://localhost:${PORT}`,
+    origin: allowedOrigins,
     credentials: true,
   })
 );
@@ -75,7 +76,6 @@ app.use("/api", mealPlanRoutes);
 app.use((req, res) => {
   res.sendFile(path.resolve(__dirname, "../../frontend", "index.html"));
 });
-
 
 // Error handling middleware.
 // THIS MUST BE THE VERY LAST THING DEFINED.
