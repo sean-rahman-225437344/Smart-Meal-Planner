@@ -22,29 +22,25 @@ export async function generateMealPlan(userId, type = "daily") {
   let days = [];
 
   if (type === "daily") {
-    days.push({ date: new Date(), 
-    meals: selectedMeals });
-  } 
-  else {
+    days.push({ date: new Date(), meals: selectedMeals });
+  } else {
     for (let i = 0; i < 7; i++) {
-      days.push({ date: new Date(Date.now() + i * 86400000), 
-      meals: selectedMeals });
+      days.push({ date: new Date(Date.now() + i * 86400000), meals: selectedMeals });
     }
   }
 
   const recipeCostMap = new Map(
-  recipes.map(r => [String(r._id), Number(r.costPerServing) || 0])
-);
+    recipes.map(r => [String(r._id), Number(r.costPerServing) || 0])
+  );
 
-const estimatedCost = days.reduce((planSum, day) => {
-  const daySum = (day.meals || []).reduce((sum, m) => {
-    const unitCost = recipeCostMap.get(String(m.recipeId)) || 0;
-    const servings = Number(m.servings ?? 1);
-    return sum + unitCost * servings;
+  const estimatedCost = days.reduce((planSum, day) => {
+    const daySum = (day.meals || []).reduce((sum, m) => {
+      const unitCost = recipeCostMap.get(String(m.recipeId)) || 0;
+      const servings = Number(m.servings ?? 1);
+      return sum + unitCost * servings;
+    }, 0);
+    return planSum + daySum;
   }, 0);
-  return planSum + daySum;
-}, 0);
-
 
   const plan = new MealPlan({
     userId,
@@ -56,10 +52,12 @@ const estimatedCost = days.reduce((planSum, day) => {
   return await plan.save();
 }
 
-/*export async function getMealPlan(id) {
-  return MealPlan.findById(id);
-}*/
-
 export async function listMealPlans(userId) {
   return MealPlan.find({ userId }).sort({ createdAt: -1 });
+}
+
+// ✅ bulk update function stays here
+export async function bulkUpdateMealPlans(userId, filter, updateData) {
+  const finalFilter = { ...filter, userId };
+  return await MealPlan.updateMany(finalFilter, { $set: updateData });
 }
