@@ -15,6 +15,7 @@ test.describe("User Registration", () => {
     await page.click("#registerForm button");
 
     await expect(page).toHaveURL(/.*dashboard(\.html)?$/);
-    await expect(page.locator("#welcomeMsg")).toBeVisible();
+    await expect(page.locator("#welcomeName")).toBeVisible();
+    await expect(page.locator("#welcomeName")).toContainText("Test User");
   });
 });

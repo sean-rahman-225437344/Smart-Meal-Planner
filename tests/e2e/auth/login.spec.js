@@ -10,7 +10,8 @@ test.describe("User Login", () => {
     await page.click("#loginForm button");
 
     await expect(page).toHaveURL(/.*dashboard(\.html)?$/);
-    await expect(page.locator("#welcomeMsg")).toBeVisible();
+    await expect(page.locator("#welcomeName")).toBeVisible();
+    await expect(page.locator("#welcomeName")).toContainText("test user");
   });
 
   test("should fail login with wrong password", async ({ page }) => {
