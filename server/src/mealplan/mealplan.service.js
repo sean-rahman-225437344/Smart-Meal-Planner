@@ -4,33 +4,46 @@ import Recipe from "../recipe/recipe.model.js";
 
 export async function generateMealPlan(userId, type = "daily") {
   const profile = await Profile.findOne({ userId });
+  if (!profile) throw new Error("No profile found for user.");
 
-  const recipes = await Recipe.find({
+  let recipes = await Recipe.find({
     dietTags: profile.diet,
-    allergenTags: { $nin: profile.allergies }
-  }).limit(10);
+    allergenTags: { $nin: profile.allergies },
+    cuisine: { $in: profile.cuisines }
+  }).limit(50);
 
   if (!recipes.length) throw new Error("No recipes found for preferences");
+
+  function shuffle(a){ 
+    for (let i=a.length-1; i>0; i--){ 
+      const j = Math.floor(Math.random()*(i+1)); 
+      [a[i],a[j]] = [a[j],a[i]];
+    } 
+    return a; 
+  }
+recipes = shuffle(recipes);
+
   
-  const selectedMeals = recipes.slice(0, 3).map(r => ({
+  const selectedMeals = (r) => ({
     title: r.title,
     recipeId: r._id,
     servings: profile.servings,
     costPerServing: r.costPerServing ?? 0
-  }));
+  });
 
-  let days = [];
+  const mealsPerDay = 3;
+  const days = [];
+  const pool = recipes.slice(); 
 
-  if (type === "daily") {
-    days.push({ date: new Date(), 
-    meals: selectedMeals });
-  } 
-  else {
-    for (let i = 0; i < 7; i++) {
-      days.push({ date: new Date(Date.now() + i * 86400000), 
-      meals: selectedMeals });
-    }
+
+  for (let d = 0; d < (type === "weekly" ? 7 : 1); d++) {
+  if (pool.length < mealsPerDay) {
+    pool.push(...shuffle(recipes.slice()));
   }
+  const dayRecipes = pool.splice(0, mealsPerDay);
+  const dayMeals = dayRecipes.map(selectedMeals); 
+  days.push({ date: new Date(Date.now() + d * 86400000), meals: dayMeals });
+}
 
   const recipeCostMap = new Map(
   recipes.map(r => [String(r._id), Number(r.costPerServing) || 0])
