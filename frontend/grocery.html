@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Smart Meal Planner Dashboard</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#38e07b",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#000000",
+                    },
+                    fontFamily: {
+                        display: ["Manrope"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.25rem",
+                        lg: "0.5rem",
+                        xl: "0.75rem",
+                        full: "9999px",
+                    },
+                },
+            },
+        };
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+        }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark font-display text-content-light dark:text-content-dark">
+
+
+    <header class="border-b border-gray-200/50 dark:border-gray-700/50">
+        <div class="container mx-auto px-6 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="bg-primary/20 text-primary p-2 rounded-lg">
+                    <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path clip-rule="evenodd"
+                            d="M16 4.00001C16.5304 4.00001 17.0391 4.21072 17.4142 4.58579C17.7893 4.96086 18 5.46957 18 6.00001V18C18 18.5304 17.7893 19.0391 17.4142 19.4142C17.0391 19.7893 16.5304 20 16 20H8C7.46957 20 6.96086 19.7893 6.58579 19.4142C6.21071 19.0391 6 18.5304 6 18V6.00001C6 5.46957 6.21071 4.96086 6.58579 4.58579C6.96086 4.21072 7.46957 4.00001 8 4.00001H16ZM9 8.00001C9 7.44772 9.44772 7.00001 10 7.00001H14C14.5523 7.00001 15 7.44772 15 8.00001C15 8.55229 14.5523 9.00001 14 9.00001H10C9.44772 9.00001 9 8.55229 9 8.00001ZM9 12C9 11.4477 9.44772 11 10 11H14C14.5523 11 15 11.4477 15 12C15 12.5523 14.5523 13 14 13H10C9.44772 13 9 12.5523 9 12ZM9 16C9 15.4477 9.44772 15 10 15H12C12.5523 15 13 15.4477 13 16C13 16.5523 12.5523 17 12 17H10C9.44772 17 9 16.5523 9 16Z"
+                            fill-rule="evenodd"></path>
+                    </svg>
+                </div>
+                <h1 class="text-xl font-bold text-gray-900 dark:text-white">
+                    Smart Meal Planner
+                </h1>
+            </div>
+
+          
+            <nav class="flex items-center gap-6">
+                <a href="dashboard.html" class="text-sm font-semibold hover:opacity-80">Dashboard</a>
+                <a href="mealplan.html" class="text-sm font-semibold hover:opacity-80">Meal Plans</a>
+                <a href="#" class="hidden sm:inline text-sm font-semibold hover:opacity-80">Settings</a>
+                <a href="profile.html">
+                    <div class="w-10 h-10 rounded-full bg-cover bg-center cursor-pointer"
+                        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBoOUTkjp8JoJ7ZnzrJ5bnHegY9lnARWaODinet2UDBlItWld4waF1yZ7Xn-wjsoHCo0ofjT5xiLt1kzQdZMwMNZTj1nb-o6Zk-lk0gjpI3Rdw7VnnDp7KMP96u5GlGOixfQE3yFNWdu0T5HUH9BS87pIzwh65EnpLPnASxsPNWmarw3AdKGXdsWw0Hbz-sVszujAeuOvD541nMwZlFC2RhDMtnAUNh4S6zKVs9i0rhpA_yJ4jPXYboBP34ejJjcQVp3lHB2bUA_SDT');">
+                    </div>
+                </a>
+            </nav>
+        </div>
+    </header>
+
+  
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="mb-6">
+            <h1 class="text-2xl md:text-3xl font-bold">Weekly Grocery List</h1>
+            <p id="range" class="text-subtle-light dark:text-subtle-dark mt-1"></p>
+        </div>
+
+        <div class="overflow-x-auto border border-border-light dark:border-border-dark rounded">
+            <table class="min-w-full text-sm">
+                <thead class="bg-primary/10 dark:bg-primary/20">
+                    <tr>
+                        <th class="text-left p-3">Item</th>
+                        <th class="text-left p-3">Unit</th>
+                        <th class="text-left p-3">Quantity</th>
+                        <th class="text-left p-3">Recipes</th>
+                    </tr>
+                </thead>
+                <tbody id="groceryBody"
+                    class="divide-y divide-border-light dark:divide-border-dark bg-background-light dark:bg-background-dark">
+          
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <script type="module" src="./js/pages/grocery.js"></script>
+</body>
+
+</html>
