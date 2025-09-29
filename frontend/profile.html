@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Update Profile - Smart Meal Planner</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#38e07b",
+              "background-light": "#f6f8f7",
+              "background-dark": "#122017",
+              "content-light": "#1a2e23",
+              "content-dark": "#e3e8e5",
+              "subtle-light": "#dce3df",
+              "subtle-dark": "#2a3f34",
+            },
+            fontFamily: {
+              display: ["Manrope", "sans-serif"],
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body
+    class="bg-background-light dark:bg-background-dark font-display text-content-light dark:text-content-dark"
+  >
+    <div class="flex flex-col min-h-screen">
+      <header class="border-b border-subtle-light dark:border-subtle-dark">
+        <nav
+          class="container mx-auto px-6 py-4 flex justify-between items-center"
+        >
+          <div class="flex items-center gap-3">
+            <svg
+              class="h-8 w-8 text-primary"
+              fill="none"
+              viewBox="0 0 48 48"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clip-rule="evenodd"
+                d="M39.475 21.6262C40.358 21.4363 40.6863 21.5589 40.7581 21.5934C40.7876 21.655 40.8547 21.857 40.8082 22.3336C40.7408 23.0255 40.4502 24.0046 39.8572 25.2301C38.6799 27.6631 36.5085 30.6631 33.5858 33.5858C30.6631 36.5085 27.6632 38.6799 25.2301 39.8572C24.0046 40.4502 23.0255 40.7407 22.3336 40.8082C21.8571 40.8547 21.6551 40.7875 21.5934 40.7581C21.5589 40.6863 21.4363 40.358 21.6262 39.475C21.8562 38.4054 22.4689 36.9657 23.5038 35.2817C24.7575 33.2417 26.5497 30.9744 28.7621 28.762C30.9744 26.5497 33.2417 24.7574 35.2817 23.5037C36.9657 22.4689 38.4054 21.8562 39.475 21.6262ZM4.41189 29.2403L18.7597 43.5881C19.8813 44.7097 21.4027 44.9179 22.7217 44.7893C24.0585 44.659 25.5148 44.1631 26.9723 43.4579C29.9052 42.0387 33.2618 39.5667 36.4142 36.4142C39.5667 33.2618 42.0387 29.9052 43.4579 26.9723C44.1631 25.5148 44.659 24.0585 44.7893 22.7217C44.9179 21.4027 44.7097 19.8813 43.5881 18.7597L29.2403 4.41187C27.8527 3.02428 25.8765 3.02573 24.2861 3.36776C22.6081 3.72863 20.7334 4.58419 18.8396 5.74801C16.4978 7.18716 13.9881 9.18353 11.5858 11.5858C9.18354 13.988 7.18717 16.4978 5.74802 18.8396C4.58421 20.7334 3.72865 22.6081 3.36778 24.2861C3.02574 25.8765 3.02429 27.8527 4.41189 29.2403Z"
+                fill="currentColor"
+                fill-rule="evenodd"
+              ></path>
+            </svg>
+            <h1 class="text-xl font-bold">Smart Meal Planner</h1>
+          </div>
+          <div class="flex items-center gap-6">
+            <a
+              class="text-sm font-medium hover:text-primary transition-colors"
+              href="#"
+              >Dashboard</a
+            >
+            <a
+              class="text-sm font-medium hover:text-primary transition-colors"
+              href="#"
+              >Recipes</a
+            >
+            <a
+              class="text-sm font-medium hover:text-primary transition-colors"
+              href="#"
+              >Settings</a
+            >
+            <div
+              class="w-10 h-10 rounded-full bg-cover bg-center"
+              style="
+                background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCmT5Lyp7bD7fCHVDoc2VPIHt7VTdET0CjF7Ytdqf1UM30YgoGFT6QhTI4jMuPotATebqdRCgVOKnx6clqJJn2QlcPrAlFatZXwhIaGehm01CTd1oiFXqSVTVSg7VEF7dKMR24cssBr-L-p8dYvYut1j7ZyVnk38XKASNI_Z2xxQcq6AsK9Iijz-P3PHBNqDHis39BAZHfu33nPXbLyuXyuqK9mGIhOr1nOxELN59t1JUhL6tPOwATj-kW_cZGj_MrUFydqkyWAi-3x');
+              "
+            ></div>
+          </div>
+        </nav>
+      </header>
+      <main class="flex-grow flex items-center justify-center py-12 px-6">
+        <div class="w-full max-w-lg">
+          <div
+            class="bg-background-light dark:bg-background-dark p-8 rounded-xl border border-subtle-light dark:border-subtle-dark"
+          >
+            <h2 class="text-3xl font-bold mb-8 text-center">Update Profile</h2>
+            <form class="space-y-6">
+              <div>
+                <label class="block text-sm font-medium mb-2" for="name"
+                  >Name</label
+                >
+                <input
+                  class="w-full px-4 py-3 rounded-lg bg-background-light dark:bg-background-dark border border-subtle-light dark:border-subtle-dark focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition"
+                  id="name"
+                  name="name"
+                  type="text"
+                  value="Jane Doe"
+                />
+              </div>
+              <div>
+                <label class="block text-sm font-medium mb-2" for="email"
+                  >Email</label
+                >
+                <input
+                  class="w-full px-4 py-3 rounded-lg bg-background-light dark:bg-background-dark border border-subtle-light dark:border-subtle-dark focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition"
+                  id="email"
+                  name="email"
+                  type="email"
+                  value="jane.doe@example.com"
+                />
+              </div>
+              <div>
+                <label
+                  class="block text-sm font-medium mb-2"
+                  for="dietary-preference"
+                  >Dietary Preference</label
+                >
+                <select
+                  class="w-full px-4 py-3 rounded-lg bg-background-light dark:bg-background-dark border border-subtle-light dark:border-subtle-dark focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition appearance-none bg-no-repeat bg-right pr-8"
+                  id="dietary-preference"
+                  name="dietary-preference"
+                  style="
+                    background-image: url('data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27 fill=%27%2338e07b%27%3e%3cpath d=%27M8 10.75a.75.75 0 0 1-.53-.22l-3-3a.75.75 0 1 1 1.06-1.06L8 8.94l2.47-2.47a.75.75 0 1 1 1.06 1.06l-3 3a.75.75 0 0 1-.53.22z%27/%3e%3c/svg%3e');
+                  "
+                >
+                  <option>Vegetarian</option>
+                  <option selected="">Vegan</option>
+                  <option>Gluten-Free</option>
+                  <option>Keto</option>
+                  <option>None</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm font-medium mb-2" for="budget"
+                  >Budget ($/week)</label
+                >
+                <input
+                  class="w-full px-4 py-3 rounded-lg bg-background-light dark:bg-background-dark border border-subtle-light dark:border-subtle-dark focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition"
+                  id="budget"
+                  name="budget"
+                  type="number"
+                  value="150"
+                />
+              </div>
+              <div class="pt-4">
+                <button
+                  class="w-full bg-primary text-background-dark font-bold py-3 px-4 rounded-lg hover:bg-opacity-90 transition-all duration-300"
+                  type="submit"
+                >
+                  Save Changes
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
