@@ -1,32 +1,47 @@
 import { registerUser, loginUser } from "../api/auth.api.js";
 
-document
-  .getElementById("registerForm")
-  .addEventListener("submit", async (e) => {
+// ✅ Signup handler
+const registerForm = document.getElementById("registerForm");
+if (registerForm) {
+  registerForm.addEventListener("submit", async (e) => {
     e.preventDefault();
-    const name = document.getElementById("regName").value;
-    const email = document.getElementById("regEmail").value;
-    const password = document.getElementById("regPassword").value;
+
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirm-password").value;
+
+    if (password !== confirmPassword) {
+      alert("Passwords do not match!");
+      return;
+    }
 
     try {
       await registerUser(name, email, password);
       console.log("✅ Redirecting to dashboard...");
       window.location.href = "dashboard.html";
     } catch (err) {
-      console.log("Registration failed:", err);
+      console.error("Registration failed:", err);
       alert("Registration failed: " + (err.response?.data?.message || "Error"));
     }
   });
+}
 
-document.getElementById("loginForm").addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const email = document.getElementById("loginEmail").value;
-  const password = document.getElementById("loginPassword").value;
+// ✅ Login handler
+const loginForm = document.getElementById("loginForm");
+if (loginForm) {
+  loginForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-  try {
-    await loginUser(email, password);
-    window.location.href = "dashboard.html";
-  } catch (err) {
-    alert("Login failed: " + (err.response?.data?.message || "Error"));
-  }
-});
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    try {
+      await loginUser(email, password);
+      window.location.href = "dashboard.html";
+    } catch (err) {
+      console.error("Login failed:", err);
+      alert("Login failed: " + (err.response?.data?.message || "Error"));
+    }
+  });
+}
