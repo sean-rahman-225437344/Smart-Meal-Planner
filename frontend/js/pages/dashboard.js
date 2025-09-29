@@ -1,6 +1,44 @@
 import { listMealPlans } from "../api/mealplan.api.js";
+import { getProfile } from "../api/profile.api.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
+  await loadProfile();
+  await loadMealPlans();
+});
+
+async function loadProfile() {
+  try {
+    const data = await getProfile();
+    const { user, profile } = data;
+
+    document.getElementById("profileName").textContent = user?.name || "—";
+    document.getElementById("profileEmail").textContent = user?.email || "—";
+    document.getElementById("profileDiet").textContent = profile?.diet || "—";
+    document.getElementById("profileBudget").textContent = profile?.weeklyBudget
+      ? `$${profile.weeklyBudget}/week`
+      : "—";
+
+    // Optional: also show allergies and cuisines if you add placeholders in HTML
+    if (document.getElementById("profileAllergies")) {
+      document.getElementById("profileAllergies").textContent = profile
+        ?.allergies?.length
+        ? profile.allergies.join(", ")
+        : "None";
+    }
+    if (document.getElementById("profileCuisines")) {
+      document.getElementById("profileCuisines").textContent = profile?.cuisines
+        ?.length
+        ? profile.cuisines.join(", ")
+        : "—";
+    }
+  } catch (err) {
+    console.error("❌ Failed to load profile:", err);
+    document.getElementById("profileName").textContent =
+      "Error loading profile";
+  }
+}
+
+async function loadMealPlans() {
   const container = document.getElementById("recentPlans");
   container.innerHTML =
     "<p class='text-gray-500 dark:text-gray-400'>Loading...</p>";
@@ -35,7 +73,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         Could not load meal plans. Please try again later.
       </p>`;
   }
-});
+}
 
 function renderPlanCard(plan) {
   const created = new Date(plan.createdAt).toLocaleString();

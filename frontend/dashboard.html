@@ -1,135 +1,217 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Smart Meal Planner | Dashboard</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="./css/dashboard.css" />
-</head>
-<body>
-
-  <header class="topbar">
-    <div class="brand">
-      <div class="dot"></div>
-      <a href="./index.html" class="name">Smart Meal Planner</a>
-    </div>
-
-    <div class="user-actions">
-      <span class="welcome">Welcome, <strong id="welcomeName">User</strong></span>
-      <button id="logoutBtn" class="btn ghost">Logout</button>
-    </div>
-  </header>
-
-  <!-- ========== TABS ( ========== -->
-  <nav class="tabs" role="tablist" aria-label="Dashboard sections">
-    <button class="tab is-active" role="tab" aria-selected="true" data-tab="profile">Profile</button>
-    <button class="tab" role="tab" aria-selected="false" data-tab="plans">My Plans</button>
-  </nav>
-
-  <!-- ========== CONTENT ========== -->
-  <main class="content">
-    <!-- Profile -->
-    <section id="panel-profile" class="panel is-active" role="tabpanel" aria-labelledby="tab-profile">
-      <div class="card grid-2">
-        <div>
-          <h2>Your Profile</h2>
-          <div class="kv">
-            <span class="k">Name</span><span id="pName" class="v">—</span>
-            <span class="k">Email</span><span id="pEmail" class="v">—</span>
-            <span class="k">Diet</span><span id="pDiet" class="v">None</span>
-          </div>
-        </div>
-        <div class="avatar-card">
-          <div class="avatar" aria-hidden="true">👤</div>
-          <p class="muted">Complete your profile info later.</p>
-        </div>
-      </div>
-
-      <div class="card">
-        <h3>Preferences</h3>
-        <div class="prefs">
-          <label>Dietary Preference
-            <select disabled>
-              <option>Vegetarian</option>
-              <option>Vegan</option>
-              <option>Halal</option>
-              <option>Gluten-free</option>
-              <option selected>None</option>
-            </select>
-          </label>
-          <label>Weekly Budget (AUD)
-            <input type="number" placeholder="e.g., 60" disabled />
-          </label>
-          <button class="btn primary" disabled>Save Changes</button>
-        </div>
-        <p class="muted tiny"></p>
-      </div>
-    </section>
-
-    <!-- My Plans -->
-    <section id="panel-plans" class="panel" role="tabpanel" aria-labelledby="tab-plans">
-      <div class="card">
-        <h2>My Plans</h2>
-        <div class="plans-head">
-          <div class="filters">
-            <input class="input" type="search" placeholder="Search plans…" disabled />
-            <select class="input" disabled>
-              <option selected>All</option>
-              <option>Weekly</option>
-              <option>Daily</option>
-            </select>
-          </div>
-          <button class="btn primary"  id="newPlanBtn">+ New Plan</button>
-        </div>
-
-        <ul class="plan-list">
-          <!-- examples for design -->
-          <li class="plan">
-            <div class="plan-title">Week 1 Budget Plan</div>
-            <div class="plan-meta muted">Budget: $45 • Days: 7 • Created: 2025-09-10</div>
-            <div class="plan-actions">
-              <button class="btn ghost" disabled>View</button>
-              <button class="btn ghost" disabled>Edit</button>
-              <button class="btn ghost danger" disabled>Delete</button>
-            </div>
-          </li>
-          <li class="plan">
-            <div class="plan-title">Vegetarian Weekdays</div>
-            <div class="plan-meta muted">Budget: $50 • Days: 5 • Created: 2025-09-12</div>
-            <div class="plan-actions">
-              <button class="btn ghost" disabled>View</button>
-              <button class="btn ghost" disabled>Edit</button>
-              <button class="btn ghost danger" disabled>Delete</button>
-            </div>
-          </li>
-        </ul>
-        
-      </div>
-    </section>
-  </main>
-
-  <!-- tiny script to switch tabs (no backend) -->
-  <script>
-    const tabs = document.querySelectorAll(".tab");
-    const panels = document.querySelectorAll(".panel");
-    tabs.forEach(t => t.addEventListener("click", () => {
-      tabs.forEach(x => x.classList.remove("is-active"));
-      panels.forEach(p => p.classList.remove("is-active"));
-      t.classList.add("is-active");
-      document.getElementById("panel-" + t.dataset.tab).classList.add("is-active");
-    }));
-
-    // Optional: show name/email from localStorage if your login saved it
-    try {
-      const user = JSON.parse(localStorage.getItem("smp_user") || "{}");
-      if (user?.email) {
-        document.getElementById("welcomeName").textContent = (user.name || user.email.split("@")[0] || "User");
-        document.getElementById("pName").textContent = user.name || "—";
-        document.getElementById("pEmail").textContent = user.email.toUpperCase();
-        document.getElementById("pDiet").textContent = user.diet || "None";
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Smart Meal Planner Dashboard</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#38e07b",
+              "background-light": "#f6f8f7",
+              "background-dark": "#122017",
+            },
+            fontFamily: {
+              display: ["Manrope"],
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
       }
-    } catch { /* ignore */ }
-  </script>
-  <script type="module" src="./js/pages/dashboard.js"></script> <!-- keep if you already have it -->
-</body>
+    </style>
+  </head>
+  <body
+    class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200"
+  >
+    <div class="flex flex-col min-h-screen">
+      <header class="border-b border-gray-200/50 dark:border-gray-700/50">
+        <div
+          class="container mx-auto px-6 py-4 flex items-center justify-between"
+        >
+          <div class="flex items-center gap-3">
+            <div class="bg-primary/20 text-primary p-2 rounded-lg">
+              <svg
+                class="h-6 w-6"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M16 4.00001C16.5304 4.00001 17.0391 4.21072 17.4142 4.58579C17.7893 4.96086 18 5.46957 18 6.00001V18C18 18.5304 17.7893 19.0391 17.4142 19.4142C17.0391 19.7893 16.5304 20 16 20H8C7.46957 20 6.96086 19.7893 6.58579 19.4142C6.21071 19.0391 6 18.5304 6 18V6.00001C6 5.46957 6.21071 4.96086 6.58579 4.58579C6.96086 4.21072 7.46957 4.00001 8 4.00001H16ZM9 8.00001C9 7.44772 9.44772 7.00001 10 7.00001H14C14.5523 7.00001 15 7.44772 15 8.00001C15 8.55229 14.5523 9.00001 14 9.00001H10C9.44772 9.00001 9 8.55229 9 8.00001ZM9 12C9 11.4477 9.44772 11 10 11H14C14.5523 11 15 11.4477 15 12C15 12.5523 14.5523 13 14 13H10C9.44772 13 9 12.5523 9 12ZM9 16C9 15.4477 9.44772 15 10 15H12C12.5523 15 13 15.4477 13 16C13 16.5523 12.5523 17 12 17H10C9.44772 17 9 16.5523 9 16Z"
+                  fill-rule="evenodd"
+                ></path>
+              </svg>
+            </div>
+            <h1 class="text-xl font-bold text-gray-900 dark:text-white">
+              Smart Meal Planner
+            </h1>
+          </div>
+          <div class="flex items-center gap-8">
+            <nav class="hidden md:flex items-center gap-6">
+              <a
+                class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors"
+                href="#"
+                >Dashboard</a
+              >
+              <a
+                class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors"
+                href="#"
+                >Meal Plans</a
+              >
+              <a
+                class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors"
+                href="#"
+                >Recipes</a
+              >
+              <a
+                class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors"
+                href="#"
+                >Settings</a
+              >
+            </nav>
+            <div
+              class="w-10 h-10 rounded-full bg-cover bg-center"
+              style="
+                background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBoOUTkjp8JoJ7ZnzrJ5bnHegY9lnARWaODinet2UDBlItWld4waF1yZ7Xn-wjsoHCo0ofjT5xiLt1kzQdZMwMNZTj1nb-o6Zk-lk0gjpI3Rdw7VnnDp7KMP96u5GlGOixfQE3yFNWdu0T5HUH9BS87pIzwh65EnpLPnASxsPNWmarw3AdKGXdsWw0Hbz-sVszujAeuOvD541nMwZlFC2RhDMtnAUNh4S6zKVs9i0rhpA_yJ4jPXYboBP34ejJjcQVp3lHB2bUA_SDT');
+              "
+            ></div>
+          </div>
+        </div>
+      </header>
+      <main class="flex-grow container mx-auto px-6 py-12">
+        <div class="max-w-4xl mx-auto">
+          <div class="mb-12">
+            <h1 class="text-4xl font-bold text-gray-900 dark:text-white">
+              Welcome back, Sarah!
+            </h1>
+            <p class="text-lg text-gray-500 dark:text-gray-400 mt-2">
+              Your personalized meal planning dashboard.
+            </p>
+          </div>
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-2 space-y-8">
+              <div
+                class="bg-white dark:bg-background-dark/50 p-6 rounded-xl border border-gray-200/50 dark:border-gray-700/50"
+              >
+                <h2
+                  class="text-xl font-bold mb-6 text-gray-900 dark:text-white"
+                >
+                  Profile
+                </h2>
+                <div class="space-y-4">
+                  <div
+                    class="flex justify-between items-center py-3 border-b border-gray-200/50 dark:border-gray-700/50"
+                  >
+                    <span
+                      class="text-sm font-medium text-gray-500 dark:text-gray-400"
+                      >Name</span
+                    >
+                    <span
+                      id="profileName"
+                      class="text-sm text-gray-800 dark:text-gray-200"
+                      >—</span
+                    >
+                  </div>
+                  <div
+                    class="flex justify-between items-center py-3 border-b border-gray-200/50 dark:border-gray-700/50"
+                  >
+                    <span
+                      class="text-sm font-medium text-gray-500 dark:text-gray-400"
+                      >Email</span
+                    >
+                    <span
+                      id="profileEmail"
+                      class="text-sm text-gray-800 dark:text-gray-200"
+                      >—</span
+                    >
+                  </div>
+                  <div
+                    class="flex justify-between items-center py-3 border-b border-gray-200/50 dark:border-gray-700/50"
+                  >
+                    <span
+                      class="text-sm font-medium text-gray-500 dark:text-gray-400"
+                      >Dietary Preference</span
+                    >
+                    <span
+                      id="profileDiet"
+                      class="text-sm text-gray-800 dark:text-gray-200"
+                      >—</span
+                    >
+                  </div>
+                  <div class="flex justify-between items-center py-3">
+                    <span
+                      class="text-sm font-medium text-gray-500 dark:text-gray-400"
+                      >Budget</span
+                    >
+                    <span
+                      id="profileBudget"
+                      class="text-sm text-gray-800 dark:text-gray-200"
+                      >—</span
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <div
+                class="bg-white dark:bg-background-dark/50 p-6 rounded-xl border border-gray-200/50 dark:border-gray-700/50"
+              >
+                <h2
+                  class="text-xl font-bold mb-4 text-gray-900 dark:text-white"
+                >
+                  Recent Activity
+                </h2>
+                <div id="recentPlans">
+                  <p class="text-gray-500 dark:text-gray-400">Loading...</p>
+                </div>
+              </div>
+            </div>
+            <div class="space-y-6">
+              <a
+                class="block text-center bg-primary/20 dark:bg-primary/30 hover:bg-primary/30 dark:hover:bg-primary/40 p-8 rounded-xl transition-all"
+                href="#"
+              >
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white">
+                  Update Profile
+                </h3>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                  Keep your information current
+                </p>
+              </a>
+              <a
+                class="block text-center bg-primary text-gray-900 p-8 rounded-xl hover:bg-primary/90 transition-all"
+                href="#"
+              >
+                <h3 class="text-lg font-bold">Generate Meal Plan</h3>
+                <p class="text-sm text-gray-800 mt-1">
+                  Create your next weekly plan
+                </p>
+              </a>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+  <script type="module" src="./js/pages/dashboard.js"></script>
 </html>
