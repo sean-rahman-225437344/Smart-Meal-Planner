@@ -1,87 +1,63 @@
-import { getProfile } from "../api/profile.api.js";
-import { logoutUser } from "../api/auth.api.js";
 import { listMealPlans } from "../api/mealplan.api.js";
 
-async function loadDashboard() {
-  try {
-    const { user } = await getProfile();
+document.addEventListener("DOMContentLoaded", async () => {
+  const container = document.getElementById("recentPlans");
+  container.innerHTML =
+    "<p class='text-gray-500 dark:text-gray-400'>Loading...</p>";
 
-    // update header welcome
-    document.getElementById("welcomeName").textContent =
-      user?.name || user?.email?.split("@")[0] || "User";
-
-    // update Profile tab
-    document.getElementById("pName").textContent = user?.name || "—";
-    document.getElementById("pEmail").textContent = user?.email?.toUpperCase() || "—";
-  } catch (err) {
-    alert("You are not logged in. Redirecting...");
-    window.location.href = "index.html";
-  }
-}
-
-async function loadPlans() {
   try {
     const plans = await listMealPlans();
-    const listEl = document.querySelector(".plan-list");
-    listEl.innerHTML = ""; // clear the demo plans already in HTML
 
     if (!plans.length) {
-      listEl.innerHTML = `<li class="muted">No meal plans yet. Create one!</li>`;
+      container.innerHTML = `
+        <div class="flex flex-col md:flex-row items-center gap-6">
+          <div class="flex-1 text-center md:text-left">
+            <h3 class="text-lg font-bold text-gray-900 dark:text-white">No recent meal plans</h3>
+            <p class="text-gray-500 dark:text-gray-400 mt-1 mb-4">
+              Start planning your meals for the week!
+            </p>
+            <a href="mealplan.html"
+              class="w-full md:w-auto inline-block bg-primary text-gray-900 font-bold py-2 px-5 rounded-lg hover:bg-primary/90 transition-all text-sm"
+            >
+              Generate Meal Plan
+            </a>
+          </div>
+        </div>`;
       return;
     }
 
-    for (const plan of plans) {
-      const li = document.createElement("li");
-      li.className = "plan";
-
-      li.innerHTML = `
-        <div class="plan-title">${plan.title || `${plan.type} Plan`}</div>
-        <div class="plan-meta muted">
-          Budget: $${plan.budget ?? "—"} • Days: ${plan.days ?? "—"} • Created: ${new Date(plan.createdAt).toLocaleDateString()}
-        </div>
-        <div class="plan-actions">
-          <button class="btn ghost view-btn">View</button>
-          <button class="btn ghost edit-btn">Edit</button>
-          <button class="btn ghost danger delete-btn">Delete</button>
-        </div>
-      `;
-
-      // Example event listeners
-      li.querySelector(".view-btn").addEventListener("click", () => {
-        alert(`Viewing plan: ${plan.id}`);
-      });
-      li.querySelector(".edit-btn").addEventListener("click", () => {
-        alert(`Editing plan: ${plan.id}`);
-      });
-      li.querySelector(".delete-btn").addEventListener("click", () => {
-        alert(`Deleting plan: ${plan.id}`);
-      });
-
-      listEl.appendChild(li);
-    }
+    // Show up to 3 recent plans
+    container.innerHTML = plans.slice(0, 3).map(renderPlanCard).join("");
   } catch (err) {
-    console.error("Failed to load plans:", err);
+    console.error("❌ Failed to load meal plans:", err);
+    container.innerHTML = `
+      <p class="text-red-500 dark:text-red-400">
+        Could not load meal plans. Please try again later.
+      </p>`;
   }
+});
+
+function renderPlanCard(plan) {
+  const created = new Date(plan.createdAt).toLocaleString();
+  const cost = `$${(plan.estimatedCost ?? 0).toFixed(2)}`;
+  const servings = plan.days.reduce(
+    (sum, d) => sum + d.meals.reduce((s, m) => s + (m.servings || 1), 0),
+    0
+  );
+
+  return `
+    <div class="p-4 mb-4 rounded-lg border bg-background-light dark:bg-background-dark shadow-sm">
+      <h3 class="font-bold text-gray-900 dark:text-white">
+        ${capitalize(plan.type)} Plan
+      </h3>
+      <p class="text-sm text-gray-500 dark:text-gray-400">Created: ${created}</p>
+      <p class="text-sm">Estimated Cost: <span class="font-semibold">${cost}</span></p>
+      <p class="text-sm">Total Servings: <span class="font-semibold">${servings}</span></p>
+      <a href="mealplan.html" class="text-primary text-sm underline">View details</a>
+    </div>
+  `;
 }
 
-// 🔹 Handle New Plan button
-document.getElementById("newPlanBtn")?.addEventListener("click", async () => {
-  try {
-    // for now, always create "daily" plan (you can later ask user type)
-    await createMealPlan("daily");
-    await loadPlans(); // refresh list
-  } catch (err) {
-    alert("Failed to create meal plan: " + (err.response?.data?.message || err.message));
-  }
-});
-
-document.getElementById("logoutBtn").addEventListener("click", async () => {
-  try {
-    await logoutUser();
-    window.location.href = "index.html";
-  } catch (err) {
-    alert("Logout failed: " + (err.response?.data?.message || "Error"));
-  }
-});
-
-loadDashboard();
+function capitalize(s) {
+  return s ? s.charAt(0).toUpperCase() + s.slice(1) : "";
+}

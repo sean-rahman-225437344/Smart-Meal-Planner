@@ -2,10 +2,9 @@ import api from "./api.js";
 
 export async function generateMealPlan(type = "daily") {
   const res = await api.post(`/api/mealplans?type=${type}`);
-  return res.data; // this is the plan object from backend
+  return res.data;
 }
 
-// Get list of saved meal plans (optional for dashboard/history)
 export async function listMealPlans() {
   const res = await api.get("/api/mealplans");
   return res.data;
