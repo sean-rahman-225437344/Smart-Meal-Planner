@@ -1,0 +1,11 @@
+# general
+node_modules
+**/node_modules
+npm-debug.log
+Dockerfile
+docker-compose*.yml
+.env
+*.md
+.git
+.vscode
+.idea
