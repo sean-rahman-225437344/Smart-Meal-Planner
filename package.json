@@ -2,25 +2,30 @@
   "name": "smart-meal-planner",
   "version": "1.0.0",
   "description": "This is the backend service for the **Smart Meal Planner** project.  \r It is built with **Node.js (Express.js)** and **MongoDB**, following a **domain-based modular architecture** (auth, profile, plans, recipes).",
+  "keywords": [],
+  "homepage": "https://github.com/sean-rahman-225437344/Smart-Meal-Planner#readme",
+  "bugs": {
+    "url": "https://github.com/sean-rahman-225437344/Smart-Meal-Planner/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sean-rahman-225437344/Smart-Meal-Planner.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
   "main": "index.js",
   "directories": {
     "doc": "docs",
     "test": "tests"
   },
   "scripts": {},
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/sean-rahman-225437344/Smart-Meal-Planner.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/sean-rahman-225437344/Smart-Meal-Planner/issues"
-  },
-  "homepage": "https://github.com/sean-rahman-225437344/Smart-Meal-Planner#readme",
   "devDependencies": {
     "@playwright/test": "^1.55.0",
     "@types/node": "^24.3.3"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.2",
+    "mongoose": "^8.18.1"
   }
 }

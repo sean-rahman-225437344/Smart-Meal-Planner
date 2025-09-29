@@ -13,16 +13,6 @@ export async function createMealPlan(req, res, next) {
   }
 }
 
-/*export async function getMealPlan(req, res, next) {
-  try {
-    const plan = await MealPlanService.getMealPlan(req.params.id);
-    if (!plan) return res.status(404).json({ message: "Plan not found" });
-    res.json(plan);
-  } catch (err) {
-    next(err);
-  }
-}*/
-
 export async function listMealPlans(req, res, next) {
   try {
     if (!req.session.userId) {
