@@ -1,6 +1,6 @@
 import { getProfile } from "../api/profile.api.js";
 import { logoutUser } from "../api/auth.api.js";
-import { listMealPlans } from "../api/mealplan.api.js";
+import { listMealPlans, createMealPlan } from "../api/mealplan.api.js";
 
 async function loadDashboard() {
   try {
@@ -35,9 +35,11 @@ async function loadPlans() {
       li.className = "plan";
 
       li.innerHTML = `
-        <div class="plan-title">${plan.title || `${plan.type} Plan`}</div>
+        <div class="plan-title">${plan.title || `${(plan.type || "daily").toUpperCase()} Plan`}</div>
         <div class="plan-meta muted">
-          Budget: $${plan.budget ?? "—"} • Days: ${plan.days ?? "—"} • Created: ${new Date(plan.createdAt).toLocaleDateString()}
+           Cost: $${Number(plan.estimatedCost ?? 0).toFixed(2)} •
+           Days: ${Array.isArray(plan.days) ? plan.days.length : "—"} •
+           Created: ${plan.createdAt ? new Date(plan.createdAt).toLocaleDateString() : "—"}
         </div>
         <div class="plan-actions">
           <button class="btn ghost view-btn">View</button>
@@ -48,7 +50,7 @@ async function loadPlans() {
 
       // Example event listeners
       li.querySelector(".view-btn").addEventListener("click", () => {
-        alert(`Viewing plan: ${plan.id}`);
+        alert(JSON.stringify(plan, null, 2));
       });
       li.querySelector(".edit-btn").addEventListener("click", () => {
         alert(`Editing plan: ${plan.id}`);
